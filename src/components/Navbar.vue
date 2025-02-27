@@ -33,7 +33,7 @@ export default {
     },
     created(){
         this.getThemeSetting();
-    },
+    },  
     props:['pages','activePages','navLinkClick'],
             data(){
                 return {
