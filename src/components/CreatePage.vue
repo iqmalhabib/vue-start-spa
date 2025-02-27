@@ -47,7 +47,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox">
+                        <input class="form-check-input" type="checkbox" v-model="published">
                         <label class="form-check-label" for="gridCheck1">
                             Published
                         </label>
@@ -78,7 +78,8 @@
                 pageTitle: '',
                 content: '',
                 linkText: '',
-                linkUrl: ''
+                linkUrl: '',
+                published: true
             }
         },
         methods:{
@@ -87,14 +88,27 @@
                     alert('Please fill the form.')
                     return;
                 }    
-                this.pageCreated({
+                this.$emit('pageCreated', {
                     pageTitle: this.pageTitle,
                     content: this.content,
                     link: {
                         text: this.linkText,
                         url: this.linkUrl
-                    }
+                    },
+                    published: this.published
                 });
+                this.pageTitle= '';
+                this.content= '';
+                this.linkText= '';
+                this.linkUrl= '';
+                this.published= true
+            }
+        },
+        watch:{
+            pageTitle(newTitle, oldTitle){
+                if(this.linkText == oldTitle){
+                    this.linkText = newTitle;
+                }
             }
         }
     }
