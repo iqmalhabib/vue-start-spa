@@ -7,9 +7,9 @@
                         Page Title  
                     </label>
                     <input
-                        type="text"
-                        class="form-control"
-                        v-model="pageTitle"
+                      v-model="pageTitle"
+                      class="form-control"
+                      type="text"
                     />
                 </div>
                 <div class="mb-3">
@@ -67,7 +67,20 @@
 </template>
 <script>
     export default{
-        props: ['pageCreated'],
+        emits:{
+            pageCreated({pageTitle, content, link}){        
+                    if(!pageTitle){
+                        return false;
+                    }  
+                    if(!content){
+                        return false;
+                    }  
+                    if(!link || !link.text ||!link.url){
+                        return false;
+                    } 
+                    return true;         
+            }
+        },
         computed:{
             isFormInvalid(){
                 return !this.pageTitle || !this.content || !this.linkText || !this.linkUrl;
@@ -88,7 +101,7 @@
                     alert('Please fill the form.')
                     return;
                 }    
-                this.$emit('pageCreated', {
+                this.$emit('pageCreated',{
                     pageTitle: this.pageTitle,
                     content: this.content,
                     link: {
