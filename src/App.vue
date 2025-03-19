@@ -1,8 +1,5 @@
 <template>
-    <navbar
-        :pages="pages"
-        :active-pages="activePage"
-    ></navbar>
+    <navbar></navbar>
 
     <router-view></router-view>
 
@@ -29,26 +26,8 @@ export default {
         Navbar, 
         PageViewer,
         CreatePage
-    },
-    created(){
-        this.getPages();
-        this.$bus.$on('navbarLinkActived', (index) => {
-            this.activePage = index;
-        });
-    },  
-    data(){
-        return{
-            activePage : 0,               
-            pages : []
-        };
     },   
     methods:{
-        async getPages(){
-            let res = await fetch('pages.json');
-            let data = await res.json();
-
-            this.pages = data;
-        },
         pageCreated(pageObj){
             this.pages.push(pageObj);
         }

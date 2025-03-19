@@ -1,10 +1,11 @@
 <template>
     <li>
         <router-link
-          :class="activeClasses"
+          
           :title="`this title go to ${page.link.text} page`"
           :to="`/${index}`"
           class="nav-link"
+          active-class="active"
           aria-current="page"
           >{{page.link.text}}</router-link>
     </li>
@@ -12,19 +13,6 @@
 
 <script>
 export default {
-    props : ['page','index','isActive'],
-    computed: {
-        activeClasses(){
-            return {
-                active: this.isActive,
-                emphasize: this.isActive  
-            };
-        }
-    }
+    props : ['page','index'],
 }
 </script>
-<style scoped>
-    .emphasize{
-        text-decoration: underline !important;
-    }
-</style>

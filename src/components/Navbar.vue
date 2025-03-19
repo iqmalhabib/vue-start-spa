@@ -9,8 +9,6 @@
                     v-for="(page, index) in publishedPages" class="nav-item" :key="index"
                     :page = "page"
                     :index = "index" 
-                    :isActive = "activePage == index"
-                    @actived = "$emit('actived')"
                     >
                 </navbar-link>
 
@@ -19,6 +17,7 @@
                       to="/create"
                       class="nav-link"
                       aria-current="page"
+                      active-class="active"
                       >Create Page</router-link>
                 </li>
             </ul>
@@ -40,39 +39,39 @@ export default {
     },
     created(){
         this.getThemeSetting();
+        this.pages  = this.$pages.getAllPages();
     },
     computed:{
         publishedPages(){
             return this.pages.filter(p => p.published);
         }    
     },
-    props:['pages','activePage'],
-            data(){
-                return {
-                    theme : 'light',  
-                }
-            },
-            methods:{
-                changeTheme(){
-                    let theme = 'light';
-
-                    if(this.theme == 'light') {
-                        theme = 'dark';
-                    }
-                    this.theme = theme;
-                    this.storeThemeSetting();
-                    
-                },
-                storeThemeSetting(){
-                    localStorage.setItem('theme', this.theme);
-                },
-                getThemeSetting(){
-                    let theme = localStorage.getItem('theme');
-                
-                    if(theme){
-                        this.theme = theme;
-                    }
-                }
+    data(){
+        return {
+            theme : 'light', 
+            pages : []
+        }
+    },
+    methods:{
+        changeTheme(){
+            let theme = 'light';
+            if(this.theme == 'light') {
+                theme = 'dark';
+            }
+            this.theme = theme;
+            this.storeThemeSetting();
+            
+        },
+        storeThemeSetting(){
+            localStorage.setItem('theme', this.theme);
+        },
+        getThemeSetting(){
+            let theme = localStorage.getItem('theme');
+        
+            if(theme){
+                this.theme = theme;
             }
         }
+    }
+}
 </script>
