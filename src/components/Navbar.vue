@@ -47,6 +47,9 @@ export default {
         this.$bus.$on('page-created',() => {
             this.pages = [...this.$pages.getAllPages()];
         });
+        this.$bus.$on('page-deleted',() => {
+            this.pages = [...this.$pages.getAllPages()];
+        });
     },
     computed:{
         publishedPages(){
